@@ -21,6 +21,12 @@ module.exports = class DB {
   }
 
   async find(id = 0, query = '') {
+
+// let sqlQuery = `SELECT * FROM ${table}`
+// this.mysql.query(sqlQuery, (err, data) => {
+
+// })
+
     let dataArray = await this.getJsonArray();
     if (id == 0) {
       return await this.filterByQueryParams(dataArray, query);
@@ -94,7 +100,7 @@ module.exports = class DB {
   }
 
   async getJsonArray() {
-    let data = await FsUtil.readFile(this.jsonFilePath);
+    let data = await FsUtil.readFile(this.jsonFilePath); // await: várd meg, amíg a Promise végez
     return JSON.parse(data);
   }
 

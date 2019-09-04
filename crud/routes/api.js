@@ -10,15 +10,30 @@ router.get('/', function (req, res, next) {
 // Example: /users/5 = user with id 5.
 router.get('/:entity/:id', async (req, res, next) => {
     const db = new DB(req.params.entity);
-    let list = await db.find(req.params.id);
+    try {
+        let list = await db.find(req.params.id)
+    } catch (err) {
+        res.statusCode = 404;
+        return res.send(err);
+    }
+    // let list = await db.find(req.params.id);
     res.json(list);
 });
 
 // Example: /users/ = all users.
 router.get('/:entity', async (req, res, next) => {
     const db = new DB(req.params.entity);
-    let list = await db.find();
-    res.json(list);
+    const data = null;
+
+    try {
+        let list = await db.find()
+    } catch (err) {
+        res.statusCode = 404;
+        return res.send(err);
+    }
+
+    // let list = await db.find();
+    res.json(data);
 });
 
 // Example: /users/ = create new user;
